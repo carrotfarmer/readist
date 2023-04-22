@@ -5,7 +5,6 @@ import {
   Center,
   Box,
   Stack,
-  Text,
   Heading,
   useColorModeValue,
   Spacer,
@@ -50,7 +49,7 @@ export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
 
       <Stack direction={"row"} px="2">
         <ul>
-          {readingList.books.map((book) => (
+          {readingList.books.slice(0, 2).map((book) => (
             <ReadingListBook book={book} />
           ))}
         </ul>
