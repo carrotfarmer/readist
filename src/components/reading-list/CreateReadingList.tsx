@@ -1,7 +1,7 @@
 import { Button, useColorModeValue } from "@chakra-ui/react";
 import type React from "react";
 import { api } from "~/utils/api";
-import { useReadingListStore } from "~/zustand/ReadingListStore";
+import { useReadingListStore } from "~/store/ReadingListStore";
 
 export const CreateReadingList: React.FC = () => {
   const { addReadingList } = useReadingListStore();

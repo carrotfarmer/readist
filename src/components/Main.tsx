@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Center, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { api } from "~/utils/api";
 
-import { useReadingListStore } from "../zustand/ReadingListStore";
+import { useReadingListStore } from "../store/ReadingListStore";
 import { CreateReadingList } from "./reading-list/CreateReadingList";
 
 interface MainProps {}
