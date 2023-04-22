@@ -14,10 +14,11 @@ export const CreateReadingList: React.FC = () => {
   return (
     <div>
       <Button
-        boxSize="48"
+        boxSize={["32", "36", "48"]}
         variant="outline"
         flex={1}
         px={4}
+        p="2"
         fontSize={"sm"}
         rounded={"xl"}
         color={useColorModeValue("black", "white")}

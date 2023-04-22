@@ -21,19 +21,18 @@ const Home: NextPage = () => {
       <main>
         <Navbar />
 
-        <Center>
-          {session ? (
-            <Main />
-          ) : (
+        {session ? (
+          <Main />
+        ) : (
+          <Center>
             <Box pt="5">
               <Text>not authenticated. please sign in to continue.</Text>
             </Box>
-          )}
-        </Center>
+          </Center>
+        )}
       </main>
     </>
   );
 };
 
 export default Home;
-

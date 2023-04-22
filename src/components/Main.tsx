@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Center, Spinner } from "@chakra-ui/react";
+import { Box, Center, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { api } from "~/utils/api";
 
 import { useReadingListStore } from "../zustand/ReadingListStore";
@@ -30,10 +30,13 @@ export const Main: React.FC<MainProps> = ({}) => {
 
   return (
     <Box pt="5">
-      <CreateReadingList />
-      {readingLists.length > 0 && readingLists.map((readingList) => (
-        <div>{readingList.name}</div>
-      ))}
+      <Center>
+        <SimpleGrid columns={[2, 3, 4]} spacing={20}>
+          <CreateReadingList />
+          {readingLists.length > 0 &&
+            readingLists.map((readingList) => <div>{readingList.name}</div>)}
+        </SimpleGrid>
+      </Center>
     </Box>
   );
 };
