@@ -1,4 +1,4 @@
-import { Button, useColorModeValue } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import type React from "react";
 import { api } from "~/utils/api";
 import { useReadingListStore } from "~/zustand/ReadingListStore";
@@ -20,13 +20,15 @@ export const CreateReadingList: React.FC = () => {
         px={4}
         fontSize={"sm"}
         rounded={"xl"}
-        color={useColorModeValue("black", "white")}
+        color={"white"}
+        boxShadow={
+          "0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(69 159 235 / 43%)"
+        }
         _hover={{
-          bg: "teal.600",
-          color: useColorModeValue("white", "white")
+          bg: "blue.600",
         }}
         _focus={{
-          bg: "teal.600",
+          bg: "blue.600",
         }}
         onClick={() => createReadingList({ name: "Helo" })}
       >

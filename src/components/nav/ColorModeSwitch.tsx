@@ -9,14 +9,14 @@ export const ColorModeSwitch: React.FC = ({}) => {
       {colorMode === "light" ? (
         <IconButton
           onClick={toggleColorMode}
-          colorScheme="pink"
+          colorScheme="teal"
           aria-label="color mode switch"
           icon={<BsMoonFill />}
         />
       ) : (
         <IconButton
           onClick={toggleColorMode}
-          colorScheme="pink"
+          colorScheme="teal"
           aria-label="color mode switch"
           icon={<BsSunFill />}
         />

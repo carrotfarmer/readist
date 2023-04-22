@@ -1,10 +1,9 @@
 import React from "react";
 
-import { Box, Button, Center, Spinner } from "@chakra-ui/react";
+import { Box, Center, Spinner } from "@chakra-ui/react";
 import { api } from "~/utils/api";
 
 import { useReadingListStore } from "../zustand/ReadingListStore";
-import { IReadingList } from "~/types";
 import { CreateReadingList } from "./reading-list/CreateReadingList";
 
 interface MainProps {}
@@ -32,7 +31,7 @@ export const Main: React.FC<MainProps> = ({}) => {
   return (
     <Box pt="5">
       <CreateReadingList />
-      {readingLists.map((readingList) => (
+      {readingLists.length > 0 && readingLists.map((readingList) => (
         <div>{readingList.name}</div>
       ))}
     </Box>
