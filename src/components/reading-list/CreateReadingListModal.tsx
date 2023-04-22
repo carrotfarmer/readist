@@ -29,7 +29,10 @@ interface CreateReadingListModalProps {
 
 const formSchema = z
   .object({
-    readingListName: z.string().max(50).min(2),
+    readingListName: z
+      .string()
+      .max(50, { message: "max length is 50 chars" })
+      .min(2, { message: "min length is 2 chars" }),
   })
   .required();
 
@@ -40,13 +43,18 @@ export const CreateReadingListModal: React.FC<CreateReadingListModalProps> = ({
   onClose,
 }) => {
   const initialFocusRef = useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitting, errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
+
   const { addReadingList } = useReadingListStore();
+
   const { mutate: createReadingList } = api.readingList.createReadingList.useMutation({
     onSuccess: (data) => {
       addReadingList(data);
