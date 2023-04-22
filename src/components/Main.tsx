@@ -1,17 +1,40 @@
 import React from "react";
 
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Center, Spinner } from "@chakra-ui/react";
 import { api } from "~/utils/api";
+
+import { useReadingListStore } from "../zustand/ReadingListStore";
+import { IReadingList } from "~/types";
+import { CreateReadingList } from "./reading-list/CreateReadingList";
 
 interface MainProps {}
 
 export const Main: React.FC<MainProps> = ({}) => {
-  const { mutate: createReadingList } = api.readingList.createReadingList.useMutation({}) 
+  const { readingLists, setReadingLists } = useReadingListStore();
+  const {
+    data: readingListsData,
+    isLoading,
+    isFetching,
+  } = api.readingList.getReadingLists.useQuery();
+
+  if (isFetching && isLoading) {
+    return (
+      <Center pt="10">
+        <Spinner />
+      </Center>
+    );
+  }
+
+  if (readingLists.length === 0 && readingListsData) {
+    setReadingLists(readingListsData);
+  }
 
   return (
     <Box pt="5">
-      <Button onClick={() => createReadingList({ name: "fiction" })}>click me</Button>
+      <CreateReadingList />
+      {readingLists.map((readingList) => (
+        <div>{readingList.name}</div>
+      ))}
     </Box>
   );
 };
-
