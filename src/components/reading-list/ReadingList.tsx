@@ -1,4 +1,8 @@
 import type React from "react";
+import { useRef } from "react";
+
+import Link from "next/link";
+
 import { IReadingList } from "~/types";
 
 import {
@@ -20,12 +24,11 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
+import { BsTrash } from "react-icons/bs";
 
 import { ReadingListBook } from "./ReadingListBook";
-import { BsTrash } from "react-icons/bs";
 import { useReadingListStore } from "~/store/ReadingListStore";
 import { api } from "~/utils/api";
-import { useRef } from "react";
 
 interface ReadingListProps {
   readingList: IReadingList;
@@ -64,11 +67,13 @@ export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
     >
       <HStack>
         <Center>
-          <Stack align={"center"}>
-            <Heading fontSize={"xl"} fontWeight="extrabold" p={4}>
-              {readingList.name}
-            </Heading>
-          </Stack>
+          <Link href={`/readinglist/${readingList.id}`}>
+            <Stack align={"center"}>
+              <Heading fontSize={"xl"} fontWeight="extrabold" p={4}>
+                {readingList.name}
+              </Heading>
+            </Stack>
+          </Link>
         </Center>
         <Spacer />
         <Box pr="2">
