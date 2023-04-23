@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 import { ReadingListBook } from "./ReadingListBook";
+import { BsTrash } from "react-icons/bs";
 
 interface ReadingListProps {
   readingList: IReadingList;
@@ -41,9 +42,24 @@ export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
         </Center>
         <Spacer />
         <Box pr="2">
-          <Tag size="sm" variant="solid" colorScheme="teal" fontWeight="bold">
-            {readingList.books.length}
-          </Tag>
+          <HStack spacing="1">
+            <Tag size="sm" variant="solid" colorScheme="teal" fontWeight="bold">
+              {readingList.books.length}
+            </Tag>
+            <Tag
+              size="sm"
+              variant="subtle"
+              colorScheme="red"
+              fontWeight="bold"
+              _hover={{
+                cursor: "pointer",
+                bgColor: "red.800",
+              }}
+              onClick={() => {}}
+            >
+              <BsTrash />
+            </Tag>
+          </HStack>
         </Box>
       </HStack>
 
