@@ -4,22 +4,52 @@ import { IReadingList } from "~/types";
 import {
   Center,
   Box,
+  Button,
   Stack,
   Heading,
   useColorModeValue,
   Spacer,
   Tag,
   HStack,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 
 import { ReadingListBook } from "./ReadingListBook";
 import { BsTrash } from "react-icons/bs";
+import { useReadingListStore } from "~/store/ReadingListStore";
+import { api } from "~/utils/api";
+import { useRef } from "react";
 
 interface ReadingListProps {
   readingList: IReadingList;
 }
 
 export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
+  const toast = useToast();
+
+  const { deleteReadingList } = useReadingListStore();
+  const { mutate: removeReadingList } = api.readingList.deleteReadingList.useMutation({
+    onSuccess: (data) => {
+      deleteReadingList(data.id);
+      toast({
+        title: "Deleted Reading List",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+  });
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef<HTMLInputElement>(null);
+
   return (
     <Box
       role={"group"}
@@ -55,11 +85,38 @@ export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
                 cursor: "pointer",
                 bgColor: "red.800",
               }}
-              onClick={() => {}}
+              onClick={onOpen}
             >
               <BsTrash />
             </Tag>
           </HStack>
+
+          <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+            <AlertDialogOverlay>
+              <AlertDialogContent>
+                <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                  Delete Reading List
+                </AlertDialogHeader>
+
+                <AlertDialogBody>
+                  Are you sure? You can't undo this action afterwards.
+                </AlertDialogBody>
+
+                <AlertDialogFooter>
+                  <Button ref={cancelRef} onClick={onClose}>
+                    Cancel
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    onClick={() => removeReadingList({ readingListId: readingList.id })}
+                    ml={3}
+                  >
+                    Delete
+                  </Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialogOverlay>
+          </AlertDialog>
         </Box>
       </HStack>
 
