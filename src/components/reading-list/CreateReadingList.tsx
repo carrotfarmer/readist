@@ -1,20 +1,11 @@
 import { Button, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import type React from "react";
-import { api } from "~/utils/api";
-import { useReadingListStore } from "~/store/ReadingListStore";
 
 import { CreateReadingListModal } from "../reading-list/CreateReadingListModal"
 
 export const CreateReadingList: React.FC = () => {
-  const { addReadingList } = useReadingListStore();
-
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const { mutate: createReadingList } = api.readingList.createReadingList.useMutation({
-    onSuccess: (data) => {
-      addReadingList(data);
-    },
-  });
   return (
     <div>
       <CreateReadingListModal isOpen={isOpen} onClose={onClose} />
