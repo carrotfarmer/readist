@@ -4,7 +4,6 @@ import { SessionProvider } from "next-auth/react";
 
 import { api } from "~/utils/api";
 
-import "~/styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 
 const MyApp: AppType<{ session: Session | null }> = ({
