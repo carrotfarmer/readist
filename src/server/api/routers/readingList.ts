@@ -44,4 +44,36 @@ export const readingListRouter = createTRPCRouter({
       },
     });
   }),
+
+  deleteReadingList: protectedProcedure
+    .input(
+      z.object({
+        readingListId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.readingList.delete({
+        where: {
+          id: input.readingListId,
+        },
+      });
+    }),
+
+  editReadingList: protectedProcedure
+    .input(
+      z.object({
+        readingListId: z.string(),
+        newName: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.readingList.update({
+        where: {
+          id: input.readingListId,
+        },
+        data: {
+          name: input.newName,
+        },
+      });
+    }),
 });

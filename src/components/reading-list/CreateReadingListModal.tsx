@@ -1,5 +1,5 @@
 import type React from "react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import {
   Modal,
@@ -14,6 +14,7 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
+  Box,
 } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
@@ -42,8 +43,6 @@ export const CreateReadingListModal: React.FC<CreateReadingListModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const initialFocusRef = useRef<HTMLInputElement>(null);
-
   const {
     register,
     handleSubmit,
@@ -51,6 +50,7 @@ export const CreateReadingListModal: React.FC<CreateReadingListModalProps> = ({
     formState: { isSubmitting, errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    mode: "onTouched",
   });
 
   const { addReadingList } = useReadingListStore();
@@ -68,7 +68,7 @@ export const CreateReadingListModal: React.FC<CreateReadingListModalProps> = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialFocusRef}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>new reading list</ModalHeader>
