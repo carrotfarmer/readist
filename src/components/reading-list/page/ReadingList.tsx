@@ -28,8 +28,7 @@ import { useReadingListStore } from "~/store/ReadingListStore";
 import { useRef } from "react";
 import { ConfirmReadingListDeletion } from "./ConfirmReadingListDeletion";
 import { EditReadingListForm } from "./EditReadingListForm";
-import { Book } from "./Book";
-import { Books } from "./Books";
+import { Books } from "~/components/book/Books";
 
 interface ReadingListProps {
   readingList: IReadingList;
