@@ -25,7 +25,7 @@ import { BiEdit as EditIcon } from "react-icons/bi";
 import { api } from "~/utils/api";
 import { useRouter } from "next/router";
 import { useReadingListStore } from "~/store/ReadingListStore";
-import { MutableRefObject, useRef } from "react";
+import { useRef } from "react";
 import { ConfirmReadingListDeletion } from "./ConfirmReadingListDeletion";
 import { EditReadingListForm } from "./EditReadingListForm";
 

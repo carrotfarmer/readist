@@ -7,7 +7,9 @@ import {
   AlertDialogOverlay,
   Button,
 } from "@chakra-ui/react";
+
 import type React from "react";
+import type { RefObject } from "react";
 
 interface DeleteReadingListInput {
   readingListId: string;
@@ -16,7 +18,7 @@ interface DeleteReadingListInput {
 interface ConfirmReadingListDeletionProps {
   isOpen: boolean;
   onClose: () => void;
-  cancelRef: React.RefObject<HTMLInputElement>;
+  cancelRef: RefObject<HTMLInputElement>;
   rlId: string;
   deleteRl: (args: DeleteReadingListInput) => void;
 }
