@@ -77,7 +77,7 @@ export const readingListRouter = createTRPCRouter({
       });
     }),
 
-  editReadingList: protectedProcedure
+  editReadingListName: protectedProcedure
     .input(
       z.object({
         readingListId: z.string(),
