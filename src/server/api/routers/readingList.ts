@@ -45,6 +45,24 @@ export const readingListRouter = createTRPCRouter({
     });
   }),
 
+  getReadingList: protectedProcedure
+    .input(
+      z.object({
+        rlId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.readingList.findUnique({
+        where: {
+          id: input.rlId,
+        },
+        include: {
+          user: true,
+          books: true,
+        },
+      });
+    }),
+
   deleteReadingList: protectedProcedure
     .input(
       z.object({
