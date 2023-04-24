@@ -14,7 +14,6 @@ import {
   PopoverHeader,
   PopoverCloseButton,
   PopoverBody,
-  PopoverFooter,
 } from "@chakra-ui/react";
 import type React from "react";
 import { IReadingList } from "~/types";
