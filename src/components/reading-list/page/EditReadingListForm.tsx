@@ -50,7 +50,11 @@ export const EditReadingListForm: React.FC<EditReadingListFormProps> = ({
     mode: "onTouched",
   });
 
-  const { mutate: editReadingListName } = api.readingList.editReadingListName.useMutation();
+  const { mutate: editReadingListName } = api.readingList.editReadingListName.useMutation({
+    onSuccess: () => {
+      window.location.reload();
+    },
+  });
 
   const onSubmit = (data: FormData): void => {
     editReadingListName({ readingListId: rlId, newName: data.newRlName });
@@ -74,23 +78,23 @@ export const EditReadingListForm: React.FC<EditReadingListFormProps> = ({
           />
           <FormErrorMessage>{errors.newRlName && errors.newRlName?.message}</FormErrorMessage>
         </FormControl>
-      </form>
 
-      <ButtonGroup display="flex" justifyContent="flex-end">
-        <Button
-          variant="outline"
-          onClick={() => {
-            reset();
-            onCancel();
-          }}
-          tabIndex={3}
-        >
-          Cancel
-        </Button>
-        <Button colorScheme="yellow" isLoading={isSubmitting}>
-          Edit
-        </Button>
-      </ButtonGroup>
+        <ButtonGroup display="flex" justifyContent="flex-end">
+          <Button
+            variant="outline"
+            onClick={() => {
+              reset();
+              onCancel();
+            }}
+            tabIndex={3}
+          >
+            Cancel
+          </Button>
+          <Button colorScheme="yellow" isLoading={isSubmitting} type="submit">
+            Edit
+          </Button>
+        </ButtonGroup>
+      </form>
     </Stack>
   );
 };

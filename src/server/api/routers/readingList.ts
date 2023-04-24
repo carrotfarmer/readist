@@ -92,6 +92,10 @@ export const readingListRouter = createTRPCRouter({
         data: {
           name: input.newName,
         },
+        include: {
+          user: true,
+          books: true,
+        },
       });
     }),
 });
