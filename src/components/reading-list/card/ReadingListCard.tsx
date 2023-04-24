@@ -108,6 +108,8 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
                 </AlertDialogBody>
 
                 <AlertDialogFooter>
+                  {/* FIX: LegacyRefObject<HTMLButtonElement> | undefined */}
+                  {/* @ts-ignore */}
                   <Button ref={cancelRef} onClick={onClose}>
                     Cancel
                   </Button>
