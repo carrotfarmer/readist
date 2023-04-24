@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 import type React from "react";
-import { MutableRefObject, useEffect } from "react";
+import { MutableRefObject } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
