@@ -28,6 +28,8 @@ import { useReadingListStore } from "~/store/ReadingListStore";
 import { useRef } from "react";
 import { ConfirmReadingListDeletion } from "./ConfirmReadingListDeletion";
 import { EditReadingListForm } from "./EditReadingListForm";
+import { Book } from "./Book";
+import { Books } from "./Books";
 
 interface ReadingListProps {
   readingList: IReadingList;
@@ -113,6 +115,8 @@ export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
         cancelRef={cancelRef}
         deleteRl={deleteRl}
       />
+
+      <Books books={readingList.books} />
     </Box>
   );
 };
