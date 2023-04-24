@@ -5,7 +5,7 @@ import { api } from "~/utils/api";
 
 import { useReadingListStore } from "../store/ReadingListStore";
 import { CreateReadingList } from "./reading-list/CreateReadingList";
-import { ReadingList } from "./reading-list/ReadingList";
+import { ReadingListCard } from "./reading-list/card/ReadingListCard";
 
 interface MainProps {}
 
@@ -35,7 +35,7 @@ export const Main: React.FC<MainProps> = ({}) => {
         <SimpleGrid columns={[2, 3, 4]} spacing={20}>
           <CreateReadingList />
           {readingLists.length > 0 &&
-            readingLists.map((readingList) => <ReadingList readingList={readingList} />)}
+            readingLists.map((readingList) => <ReadingListCard readingList={readingList} />)}
         </SimpleGrid>
       </Center>
     </Box>

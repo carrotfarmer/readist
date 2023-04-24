@@ -34,7 +34,7 @@ interface ReadingListProps {
   readingList: IReadingList;
 }
 
-export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
+export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => {
   const toast = useToast();
 
   const { deleteReadingList } = useReadingListStore();

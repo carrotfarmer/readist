@@ -1,15 +1,36 @@
-import { Box, Center, Text } from "@chakra-ui/react";
+import { Box, Center, Spinner, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
+
 import { useSession } from "next-auth/react";
+
 import Head from "next/head";
 import { useRouter } from "next/router";
+
 import { Navbar } from "~/components/nav/Navbar";
+import { ReadingList } from "~/components/reading-list/page/ReadingList";
+
+import type { IReadingList } from "~/types";
+import { api } from "~/utils/api";
 
 const ReadingListPage: NextPage = () => {
   const router = useRouter();
   const { rlId } = router.query;
 
   const { data: session } = useSession();
+
+  const { data: readingList, isLoading } = api.readingList.getReadingList.useQuery({ rlId: rlId as string });
+
+  if (isLoading) {
+    return (
+      <Box>
+        <Navbar />
+
+        <Center pt="10">
+          <Spinner />
+        </Center>
+      </Box>
+    )
+  }
 
   return (
     <Box>
@@ -22,7 +43,7 @@ const ReadingListPage: NextPage = () => {
         <Navbar />
 
         {session ? (
-          <div>hello</div>
+          <ReadingList readingList={readingList as IReadingList} />
         ) : (
           <Center>
             <Box pt="5">
