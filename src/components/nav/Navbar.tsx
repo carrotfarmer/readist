@@ -4,6 +4,7 @@ import { Box, Flex, Stack, Button, Heading, useColorModeValue } from "@chakra-ui
 
 import { signOut, signIn, useSession } from "next-auth/react";
 import { ColorModeSwitch } from "./ColorModeSwitch";
+import Link from "next/link";
 
 export const Navbar: React.FC = ({}) => {
   const { data: session } = useSession();
@@ -22,9 +23,11 @@ export const Navbar: React.FC = ({}) => {
         align={"center"}
       >
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <Heading color={useColorModeValue("gray.800", "white")} size="md">
-            reading list
-          </Heading>
+          <Link href="/">
+            <Heading color={useColorModeValue("gray.800", "white")} size="md">
+              reading list
+            </Heading>
+          </Link>
         </Flex>
         <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
           <ColorModeSwitch />
@@ -66,4 +69,3 @@ export const Navbar: React.FC = ({}) => {
     </Box>
   );
 };
-
