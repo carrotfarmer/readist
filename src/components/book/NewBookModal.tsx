@@ -29,10 +29,19 @@ interface NewBookModalProps {
   rlId: string;
 }
 
-const formSchema = z.object({
-  bookTitle: z.string(),
-  author: z.string(),
-});
+const formSchema = z
+  .object({
+    bookTitle: z
+      .string()
+      .min(5, { message: "min length for the book title is 5 chars" })
+      .max(200, { message: "max length for book title is 200 chars" }),
+
+    author: z
+      .string()
+      .min(2, { message: "min length for the author is 2 chars" })
+      .max(200, { message: "max length for book title is 200 chars" }),
+  })
+  .required();
 
 type FormData = z.infer<typeof formSchema>;
 
