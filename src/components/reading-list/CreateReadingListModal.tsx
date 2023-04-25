@@ -14,7 +14,7 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  Box,
+  useMergeRefs,
 } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
@@ -67,6 +67,8 @@ export const CreateReadingListModal: React.FC<CreateReadingListModalProps> = ({
     onClose();
   };
 
+  const createRlRef = useRef(null);
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -82,7 +84,9 @@ export const CreateReadingListModal: React.FC<CreateReadingListModalProps> = ({
                 placeholder="eg: self-help"
                 variant="filled"
                 focusBorderColor="teal.300"
+                tabIndex={1}
                 {...register("readingListName")}
+                ref={useMergeRefs(createRlRef, register("readingListName").ref)}
               />
               <FormErrorMessage>
                 {errors.readingListName && errors.readingListName?.message}
