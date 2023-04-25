@@ -12,8 +12,9 @@ import {
   Input,
   FormErrorMessage,
   ButtonGroup,
+  useMergeRefs,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useRef } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,6 +47,8 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, onO
     mode: "onTouched",
   });
 
+  const newBookRef = useRef(null);
+
   const { addBook } = useBookStore();
 
   const { mutate: newBook } = api.book.createBook.useMutation({
@@ -70,7 +73,13 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, onO
           <ModalBody>
             <FormControl>
               <FormLabel htmlFor="title">Book Title</FormLabel>
-              <Input id="title" placeholder="Thinking, Fast and Slow" {...register("bookTitle")} />
+              <Input
+                id="title"
+                placeholder="Thinking, Fast and Slow"
+                tabIndex={1}
+                {...register("bookTitle")}
+                ref={useMergeRefs(newBookRef, register("bookTitle").ref)}
+              />
               <FormErrorMessage>
                 {errors.bookTitle && errors.bookTitle?.message?.toString()}
               </FormErrorMessage>
