@@ -60,6 +60,7 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, onO
 
   const onSubmit = (data: FormData) => {
     newBook({ bookName: data.bookTitle, bookAuthor: data.author, rlId });
+    reset();
     onClose();
   };
 
@@ -93,7 +94,7 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, onO
               <Button variant="ghost" colorScheme="twitter" onClick={onClose}>
                 Close
               </Button>
-              <Button variant="outline" type="submit">
+              <Button variant="outline" type="submit" isLoading={isSubmitting}>
                 Add
               </Button>
             </ButtonGroup>
