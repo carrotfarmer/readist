@@ -35,4 +35,18 @@ export const bookRouter = createTRPCRouter({
         },
       });
     }),
+
+  deleteBook: protectedProcedure
+    .input(
+      z.object({
+        bookId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.book.delete({
+        where: {
+          id: input.bookId,
+        },
+      });
+    }),
 });
