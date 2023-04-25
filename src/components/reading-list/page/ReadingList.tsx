@@ -114,7 +114,7 @@ export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
         deleteRl={deleteRl}
       />
 
-      <Books books={readingList.books} />
+      <Books rlId={readingList.id} />
     </Box>
   );
 };

@@ -22,3 +22,6 @@ export const useBookStore = create<State & Action>((set) => ({
   setBooks: (books: Book[]) => set(() => ({ books })),
   addBook: (book: Book) => set((state) => ({ books: [...state.books, book] })),
 }));
+
+const unsub1 = useBookStore.subscribe(console.log)
+

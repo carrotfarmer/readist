@@ -21,4 +21,18 @@ export const bookRouter = createTRPCRouter({
         },
       });
     }),
+
+  getBooks: protectedProcedure
+    .input(
+      z.object({
+        rlId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.book.findMany({
+        where: {
+          readingListId: input.rlId,
+        },
+      });
+    }),
 });
