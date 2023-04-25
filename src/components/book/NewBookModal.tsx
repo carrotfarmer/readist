@@ -12,8 +12,6 @@ import {
   Input,
   FormErrorMessage,
   ButtonGroup,
-  Center,
-  Spinner,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -22,8 +20,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { api } from "~/utils/api";
 import { useBookStore } from "~/store/BookStore";
-import { useReadingListStore } from "~/store/ReadingListStore";
-import { IReadingList } from "~/types";
 
 interface NewBookModalProps {
   isOpen: boolean;
