@@ -25,7 +25,6 @@ import { useBookStore } from "~/store/BookStore";
 interface NewBookModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpen: () => void;
   rlId: string;
 }
 
@@ -45,7 +44,7 @@ const formSchema = z
 
 type FormData = z.infer<typeof formSchema>;
 
-export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, onOpen, rlId }) => {
+export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, rlId }) => {
   const {
     register,
     handleSubmit,

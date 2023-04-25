@@ -62,7 +62,7 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
             </Box>
           </Button>
         </Tooltip>
-        <NewBookModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} rlId={rlId} />
+        <NewBookModal isOpen={isOpen} onClose={onClose} rlId={rlId} />
       </Box>
     </>
   );
