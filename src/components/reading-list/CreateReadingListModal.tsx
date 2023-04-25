@@ -20,7 +20,10 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+
 import { useReadingListStore } from "~/store/ReadingListStore";
+import { consts } from "~/constants";
+
 import { api } from "~/utils/api";
 
 interface CreateReadingListModalProps {
@@ -32,8 +35,12 @@ const formSchema = z
   .object({
     readingListName: z
       .string()
-      .max(50, { message: "max length is 50 chars" })
-      .min(2, { message: "min length is 2 chars" }),
+      .max(consts.READING_LIST_MAX_CHARS, {
+        message: `max length is ${consts.READING_LIST_MAX_CHARS} chars`,
+      })
+      .min(consts.READING_LIST_MIN_CHARS, {
+        message: `min length is ${consts.READING_LIST_MIN_CHARS} chars`,
+      }),
   })
   .required();
 

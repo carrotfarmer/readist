@@ -19,8 +19,11 @@ import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+
 import { api } from "~/utils/api";
+
 import { useBookStore } from "~/store/BookStore";
+import { consts } from "~/constants";
 
 interface NewBookModalProps {
   isOpen: boolean;
@@ -32,13 +35,17 @@ const formSchema = z
   .object({
     bookTitle: z
       .string()
-      .min(5, { message: "min length for the book title is 5 chars" })
-      .max(200, { message: "max length for book title is 200 chars" }),
+      .min(consts.BOOK_TITLE_MIN_CHARS, {
+        message: `min length for the book title is ${consts.BOOK_TITLE_MIN_CHARS} chars`,
+      })
+      .max(consts.BOOK_TITLE_MAX_CHARS, {
+        message: `max length for book title is ${consts.BOOK_TITLE_MAX_CHARS} chars`,
+      }),
 
     author: z
       .string()
-      .min(2, { message: "min length for the author is 2 chars" })
-      .max(200, { message: "max length for book title is 200 chars" }),
+      .min(consts.BOOK_AUTHOR_MIN_CHARS, { message: "min length for the author is 2 chars" })
+      .max(consts.BOOK_AUTHOR_MAX_CHARS, { message: "max length for book title is 200 chars" }),
   })
   .required();
 
