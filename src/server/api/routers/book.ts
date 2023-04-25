@@ -49,4 +49,24 @@ export const bookRouter = createTRPCRouter({
         },
       });
     }),
+
+  editBook: protectedProcedure
+    .input(
+      z.object({
+        bookId: z.string(),
+        newTitle: z.string(),
+        newAuthor: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.book.update({
+        where: {
+          id: input.bookId,
+        },
+        data: {
+          name: input.newTitle,
+          author: input.newAuthor,
+        },
+      });
+    }),
 });
