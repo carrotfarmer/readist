@@ -1,4 +1,4 @@
-import { Box, Center, Spinner, Text } from "@chakra-ui/react";
+import { Box, Center, Heading, Spinner, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 
 import { useSession } from "next-auth/react";
@@ -51,15 +51,25 @@ const ReadingListPage: NextPage = () => {
         {session && isRlPartOfUser ? (
           <ReadingList readingList={readingList as IReadingList} />
         ) : (
-          <Center>
-            <Box pt="5">
-              {session ? (
-                <Text>Access Denied</Text>
-              ) : (
+          <Box pt="5">
+            {session ? (
+              <>
+                <Center>
+                  <Heading>Access Denied</Heading>
+                </Center>
+
+                <Center pt="2%">
+                  <Text>
+                    You do not have a reading list with this ID associated to your account!
+                  </Text>
+                </Center>
+              </>
+            ) : (
+              <Center>
                 <Text>not authenticated. please sign in to continue.</Text>
-              )}
-            </Box>
-          </Center>
+              </Center>
+            )}
+          </Box>
         )}
       </main>
     </Box>
