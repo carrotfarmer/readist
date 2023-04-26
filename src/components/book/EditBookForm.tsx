@@ -97,7 +97,7 @@ export const EditBookForm: React.FC<EditBookFormProps> = ({ editRef, onCancel, b
             placeholder="eg: Daniel Kahneman"
             variant="filled"
             focusBorderColor="teal.300"
-            tabIndex={2}
+            tabIndex={1}
             defaultValue={book.author}
             {...register("newAuthor")}
           />
@@ -111,7 +111,7 @@ export const EditBookForm: React.FC<EditBookFormProps> = ({ editRef, onCancel, b
               reset();
               onCancel();
             }}
-            tabIndex={3}
+            tabIndex={1}
           >
             Cancel
           </Button>
