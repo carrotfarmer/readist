@@ -102,7 +102,13 @@ export const CreateReadingListModal: React.FC<CreateReadingListModalProps> = ({
           </ModalBody>
 
           <ModalFooter gap="2">
-            <Button variant="outline" onClick={onClose}>
+            <Button
+              variant="outline"
+              onClick={() => {
+                reset();
+                onClose();
+              }}
+            >
               Close
             </Button>
 
