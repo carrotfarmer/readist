@@ -14,6 +14,7 @@ import { useBookStore } from "~/store/BookStore";
 import { BiBookAdd } from "react-icons/bi";
 import { NewBookModal } from "./NewBookModal";
 import { api } from "~/utils/api";
+import { useEffect } from "react";
 
 interface BooksProps {
   rlId: string;
@@ -22,10 +23,12 @@ interface BooksProps {
 export const Books: React.FC<BooksProps> = ({ rlId }) => {
   const { books: booksState, setBooks } = useBookStore();
 
-  const { data: booksData, isLoading, isFetching } = api.book.getBooks.useQuery({ rlId });
-
   // Add Book Modal
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data: booksData, isLoading, isFetching } = api.book.getBooks.useQuery({ rlId });
+
+  // reset state on route change
+  useEffect(() => setBooks([]), []);
 
   if (isFetching && isLoading) {
     return (
@@ -54,9 +57,15 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
           ))}
         </Box>
       </Center>
-      <Box mx="10" pt="10">
+      <Box mx="10" pt="5">
         <Tooltip label="Add book" hasArrow>
-          <Button colorScheme="green" size="sm" onClick={onOpen}>
+          <Button
+            bgColor="teal.600"
+            _hover={{ bgColor: "teal.500" }}
+            color={useColorModeValue("white", "white")}
+            size="sm"
+            onClick={onOpen}
+          >
             <Box>
               <BiBookAdd size="20" />
             </Box>
