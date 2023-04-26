@@ -79,7 +79,7 @@ export const EditReadingListForm: React.FC<EditReadingListFormProps> = ({
           <FormErrorMessage>{errors.newRlName && errors.newRlName?.message}</FormErrorMessage>
         </FormControl>
 
-        <ButtonGroup display="flex" justifyContent="flex-end">
+        <ButtonGroup display="flex" justifyContent="flex-end" pt="4%">
           <Button
             variant="outline"
             onClick={() => {

@@ -58,58 +58,66 @@ export const Book: React.FC<BookProps> = ({ book }) => {
   const editRef = useRef(null);
 
   return (
-    <HStack p="2">
-      <Checkbox
-        mr="10"
-        borderColor={useColorModeValue("gray.400", "gray.500")}
-        onChange={() => {
-          if (book.isFinished) {
-            markAsNotFinished({ bookId: book.id });
-          } else {
-            markAsFinished({ bookId: book.id });
-          }
-        }}
-        isChecked={book.isFinished}
-      />
-      <Text fontWeight="bold" as={book.isFinished ? "s" : "p"}>
-        {book.name}
-      </Text>
-      <Text fontWeight="light">{book.author}</Text>
-      <Spacer />
-      <ButtonGroup>
-        <Popover
-          isOpen={isPopoverOpen}
-          onOpen={onPopoverOpen}
-          onClose={onPopoverClose}
-          closeOnBlur={false}
-          initialFocusRef={editRef}
-        >
-          <PopoverTrigger>
-            <Button colorScheme="orange" size="xs">
-              <Box>
-                <EditIcon />
-              </Box>
-            </Button>
-          </PopoverTrigger>
+    <Box
+      bgColor="blackAlpha.300"
+      borderRadius="md"
+      p="2"
+      border="1px"
+      borderColor="gray.800"
+    >
+      <HStack p="2">
+        <Checkbox
+          mr="10"
+          borderColor={useColorModeValue("gray.400", "gray.500")}
+          onChange={() => {
+            if (book.isFinished) {
+              markAsNotFinished({ bookId: book.id });
+            } else {
+              markAsFinished({ bookId: book.id });
+            }
+          }}
+          isChecked={book.isFinished}
+        />
+        <Text fontWeight="bold" as={book.isFinished ? "s" : "p"}>
+          {book.name}
+        </Text>
+        <Text fontWeight="light">{book.author}</Text>
+        <Spacer />
+        <ButtonGroup>
+          <Popover
+            isOpen={isPopoverOpen}
+            onOpen={onPopoverOpen}
+            onClose={onPopoverClose}
+            closeOnBlur={false}
+            initialFocusRef={editRef}
+          >
+            <PopoverTrigger>
+              <Button colorScheme="orange" size="xs">
+                <Box>
+                  <EditIcon />
+                </Box>
+              </Button>
+            </PopoverTrigger>
 
-          <Portal>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverHeader>Edit Reading List Name</PopoverHeader>
-              <PopoverCloseButton tabIndex={2} />
-              <PopoverBody>
-                <EditBookForm editRef={editRef} onCancel={onPopoverClose} book={book} />
-              </PopoverBody>
-            </PopoverContent>
-          </Portal>
-        </Popover>
+            <Portal>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverHeader>Edit Reading List Name</PopoverHeader>
+                <PopoverCloseButton tabIndex={2} />
+                <PopoverBody>
+                  <EditBookForm editRef={editRef} onCancel={onPopoverClose} book={book} />
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
 
-        <Button colorScheme="red" size="xs" onClick={() => removeBook({ bookId: book.id })}>
-          <Box>
-            <DeleteIcon />
-          </Box>
-        </Button>
-      </ButtonGroup>
-    </HStack>
+          <Button colorScheme="red" size="xs" onClick={() => removeBook({ bookId: book.id })}>
+            <Box>
+              <DeleteIcon />
+            </Box>
+          </Button>
+        </ButtonGroup>
+      </HStack>
+    </Box>
   );
 };

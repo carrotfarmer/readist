@@ -31,7 +31,7 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
   useEffect(() => setBooks([]), []);
 
   if (isFetching && isLoading) {
-   return (
+    return (
       <Center pt="10">
         <Spinner />
       </Center>
@@ -44,35 +44,37 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
 
   return (
     <>
-      <Center pt="5%">
+      <Center pt="2%">
         <Box
-          bgColor={useColorModeValue("gray.100", "gray.700")}
-          p="10"
-          borderRadius="2xl"
-          width="full"
-          mx="10"
+          // bgColor={useColorModeValue("gray.100", "gray.700")}
+          px="10"
+          // borderRadius="2xl"
+          // mx="10"
+          width="3xl"
         >
           {booksState.map((book) => (
             <Book book={book} />
           ))}
         </Box>
       </Center>
-      <Box mx="10" pt="5">
-        <Tooltip label="Add book" hasArrow>
-          <Button
-            bgColor="teal.600"
-            _hover={{ bgColor: "teal.500" }}
-            color={useColorModeValue("white", "white")}
-            size="sm"
-            onClick={onOpen}
-          >
-            <Box>
-              <BiBookAdd size="20" />
-            </Box>
-          </Button>
-        </Tooltip>
-        <NewBookModal isOpen={isOpen} onClose={onClose} rlId={rlId} />
-      </Box>
+      <Center>
+        <Box mx="10" pt="5">
+          <Tooltip label="Add book" hasArrow>
+            <Button
+              bgColor="teal.600"
+              _hover={{ bgColor: "teal.500" }}
+              color={useColorModeValue("white", "white")}
+              size="sm"
+              onClick={onOpen}
+            >
+              <Box>
+                <BiBookAdd size="20" />
+              </Box>
+            </Button>
+          </Tooltip>
+          <NewBookModal isOpen={isOpen} onClose={onClose} rlId={rlId} />
+        </Box>
+      </Center>
     </>
   );
 };
