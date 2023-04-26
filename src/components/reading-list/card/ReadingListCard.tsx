@@ -51,7 +51,7 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
   });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef<HTMLInputElement>(null);
+  const cancelRef = useRef(null);
 
   return (
     <Box
@@ -108,8 +108,6 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
                 </AlertDialogBody>
 
                 <AlertDialogFooter>
-                  {/* FIX: LegacyRefObject<HTMLButtonElement> | undefined */}
-                  {/* @ts-ignore */}
                   <Button ref={cancelRef} onClick={onClose}>
                     Cancel
                   </Button>
