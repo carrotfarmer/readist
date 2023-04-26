@@ -23,6 +23,8 @@ import {
   AlertDialogFooter,
   useDisclosure,
   useToast,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 
@@ -57,7 +59,7 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
     <Box
       role={"group"}
       bg={useColorModeValue("white", "gray.800")}
-      boxSize={["32", "36", "48"]}
+      boxSize={["32", "36", "56"]}
       boxShadow={"2xl"}
       rounded={"lg"}
       pos={"relative"}
@@ -70,7 +72,9 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
           <Link href={`/readinglist/${readingList.id}`}>
             <Stack align={"center"}>
               <Heading fontSize={"xl"} fontWeight="extrabold" p={4}>
-                {readingList.name}
+                {readingList.name.length > 20
+                  ? `${readingList.name.slice(0, 20)}...`
+                  : readingList.name}
               </Heading>
             </Stack>
           </Link>
@@ -79,7 +83,7 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
         <Box pr="2">
           <HStack spacing="1">
             <Tag size="sm" variant="solid" colorScheme="teal" fontWeight="bold">
-              {(readingList.books.filter(book => !book.isFinished)).length}
+              {readingList.books.filter((book) => !book.isFinished).length}
             </Tag>
             <Tag
               size="sm"
