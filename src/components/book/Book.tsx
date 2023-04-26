@@ -59,11 +59,11 @@ export const Book: React.FC<BookProps> = ({ book }) => {
 
   return (
     <Box
-      bgColor="blackAlpha.300"
+      bgColor={useColorModeValue("gray.100", "blackAlpha.300")}
       borderRadius="md"
       p="2"
       border="1px"
-      borderColor="gray.800"
+      borderColor={useColorModeValue("gray.400", "gray.700")}
     >
       <HStack p="2">
         <Checkbox
@@ -81,7 +81,7 @@ export const Book: React.FC<BookProps> = ({ book }) => {
         <Text fontWeight="bold" as={book.isFinished ? "s" : "p"}>
           {book.name}
         </Text>
-        <Text fontWeight="light">{book.author}</Text>
+        <Text fontWeight="light" color={useColorModeValue("gray.500", "gray.400")}>{book.author}</Text>
         <Spacer />
         <ButtonGroup>
           <Popover
