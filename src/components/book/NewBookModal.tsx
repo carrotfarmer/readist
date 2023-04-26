@@ -86,7 +86,7 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, rlI
         <ModalCloseButton />
         <form onSubmit={handleSubmit(onSubmit)}>
           <ModalBody>
-            <FormControl>
+            <FormControl isInvalid={Boolean(errors.bookTitle)}>
               <FormLabel htmlFor="title">Book Title</FormLabel>
               <Input
                 id="title"
@@ -100,9 +100,14 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, rlI
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl pt="4%">
+            <FormControl pt="4%" isInvalid={Boolean(errors.author)}>
               <FormLabel htmlFor="title">Author</FormLabel>
-              <Input id="title" placeholder="Daniel Kahneman" tabIndex={2} {...register("author")} />
+              <Input
+                id="title"
+                placeholder="Daniel Kahneman"
+                tabIndex={2}
+                {...register("author")}
+              />
               <FormErrorMessage>
                 {errors.author && errors.author?.message?.toString()}
               </FormErrorMessage>
