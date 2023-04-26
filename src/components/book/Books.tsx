@@ -15,6 +15,7 @@ import { BiBookAdd } from "react-icons/bi";
 import { NewBookModal } from "./NewBookModal";
 import { api } from "~/utils/api";
 import { useEffect } from "react";
+import { CompletedBooks } from "./CompletedBooks";
 
 interface BooksProps {
   rlId: string;
@@ -45,16 +46,12 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
   return (
     <>
       <Center pt="2%">
-        <Box
-          // bgColor={useColorModeValue("gray.100", "gray.700")}
-          px="10"
-          // borderRadius="2xl"
-          // mx="10"
-          width="3xl"
-        >
-          {booksState.map((book) => (
-            <Book book={book} />
-          ))}
+        <Box px="10" width="3xl">
+          {booksState
+            .filter((book) => !book.isFinished)
+            .map((book) => (
+              <Book book={book} />
+            ))}
         </Box>
       </Center>
       <Center>
@@ -75,6 +72,11 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
           <NewBookModal isOpen={isOpen} onClose={onClose} rlId={rlId} />
         </Box>
       </Center>
+      {booksState.filter((book) => book.isFinished).length > 0 && (
+        <Box pt="10">
+          <CompletedBooks completedBooks={booksState.filter((book) => book.isFinished)} />
+        </Box>
+      )}
     </>
   );
 };
