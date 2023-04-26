@@ -69,4 +69,42 @@ export const bookRouter = createTRPCRouter({
         },
       });
     }),
+
+  markComplete: protectedProcedure
+    .input(
+      z.object({
+        bookId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.book.update({
+        where: {
+          id: input.bookId,
+        },
+        data: {
+          isFinished: {
+            set: true,
+          },
+        },
+      });
+    }),
+
+  markInComplete: protectedProcedure
+    .input(
+      z.object({
+        bookId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.book.update({
+        where: {
+          id: input.bookId,
+        },
+        data: {
+          isFinished: {
+            set: false,
+          },
+        },
+      });
+    }),
 });
