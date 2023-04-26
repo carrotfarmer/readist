@@ -79,7 +79,7 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
         <Box pr="2">
           <HStack spacing="1">
             <Tag size="sm" variant="solid" colorScheme="teal" fontWeight="bold">
-              {readingList.books.length}
+              {(readingList.books.filter(book => !book.isFinished)).length}
             </Tag>
             <Tag
               size="sm"
