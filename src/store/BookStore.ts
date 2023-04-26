@@ -10,6 +10,7 @@ interface Action {
   addBook: (book: Book) => void;
   deleteBook: (bookId: string) => void;
   toggleComplete: (bookId: string) => void;
+  editBook: (bookId: string, newTitle: string, newAuthor: string) => void;
 }
 
 export const useBookStore = create<State & Action>((set) => ({
@@ -18,10 +19,16 @@ export const useBookStore = create<State & Action>((set) => ({
   addBook: (book: Book) => set((state) => ({ books: [...state.books, book] })),
   deleteBook: (bookId: string) =>
     set((state) => ({ books: state.books.filter((book) => book.id !== bookId) })),
+  editBook: (bookId: string, newTitle: string, newAuthor: string) =>
+    set((state) => ({
+      books: state.books.map((book) =>
+        book.id === bookId ? { ...book, name: newTitle, author: newAuthor } : book
+      ),
+    })),
   toggleComplete: (bookId: string) =>
     set((state) => ({
       books: state.books.map((book) =>
-        book.id === bookId ? ({ ...book, isFinished: !book.isFinished }) : book
+        book.id === bookId ? { ...book, isFinished: !book.isFinished } : book
       ),
     })),
 }));

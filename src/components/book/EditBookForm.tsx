@@ -20,6 +20,7 @@ import type { Book } from "@prisma/client";
 import { api } from "~/utils/api";
 
 import { consts } from "~/constants";
+import { useBookStore } from "~/store/BookStore";
 
 interface EditBookFormProps {
   editRef: MutableRefObject<null>;
@@ -58,14 +59,17 @@ export const EditBookForm: React.FC<EditBookFormProps> = ({ editRef, onCancel, b
     mode: "onTouched",
   });
 
+  const { editBook: editBookState } = useBookStore();
+
   const { mutate: editBook } = api.book.editBook.useMutation({
-    onSuccess: () => {
-      window.location.reload();
+    onSuccess: (data) => {
+      editBookState(book.id, data.name, data.author)
     },
   });
 
   const onSubmit = (data: FormData) => {
     editBook({ bookId: book.id, newTitle: data.newTitle, newAuthor: data.newAuthor });
+    onCancel();
   };
 
   return (
