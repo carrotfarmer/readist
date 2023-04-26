@@ -31,7 +31,7 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
   useEffect(() => setBooks([]), []);
 
   if (isFetching && isLoading) {
-    return (
+   return (
       <Center pt="10">
         <Spinner />
       </Center>

@@ -116,7 +116,14 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, rlI
 
           <ModalFooter>
             <ButtonGroup>
-              <Button variant="ghost" colorScheme="twitter" onClick={onClose}>
+              <Button
+                variant="ghost"
+                colorScheme="twitter"
+                onClick={() => {
+                  onClose();
+                  reset();
+                }}
+              >
                 Close
               </Button>
               <Button variant="outline" type="submit" isLoading={isSubmitting}>

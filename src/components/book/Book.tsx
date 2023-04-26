@@ -58,7 +58,7 @@ export const Book: React.FC<BookProps> = ({ book }) => {
   const editRef = useRef(null);
 
   return (
-    <HStack pb="5">
+    <HStack p="2">
       <Checkbox
         mr="10"
         borderColor={useColorModeValue("gray.400", "gray.500")}
