@@ -97,7 +97,7 @@ export const EditBookForm: React.FC<EditBookFormProps> = ({ editRef, onCancel, b
             placeholder="eg: Daniel Kahneman"
             variant="filled"
             focusBorderColor="teal.300"
-            tabIndex={1}
+            tabIndex={2}
             defaultValue={book.author}
             {...register("newAuthor")}
           />

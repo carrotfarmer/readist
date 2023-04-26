@@ -102,7 +102,7 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, rlI
 
             <FormControl pt="4%">
               <FormLabel htmlFor="title">Author</FormLabel>
-              <Input id="title" placeholder="Daniel Kahneman" {...register("author")} />
+              <Input id="title" placeholder="Daniel Kahneman" tabIndex={2} {...register("author")} />
               <FormErrorMessage>
                 {errors.author && errors.author?.message?.toString()}
               </FormErrorMessage>
