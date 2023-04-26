@@ -7,6 +7,8 @@ import {
   Box,
   Center,
   Heading,
+  HStack,
+  Badge,
 } from "@chakra-ui/react";
 import type { Book as IBook } from "@prisma/client";
 import React from "react";
@@ -24,7 +26,18 @@ export const CompletedBooks: React.FC<CompletedBooksProps> = ({ completedBooks }
           <AccordionItem p="5">
             <AccordionButton>
               <Box as="span" flex="1" textAlign="left">
-                <Heading fontSize="lg">completed books</Heading>
+                <HStack spacing="3">
+                  <Heading fontSize="lg">completed books</Heading>
+                  <Badge
+                    colorScheme="green"
+                    fontSize="md"
+                    px="2"
+                    borderRadius="md"
+                    variant="subtle"
+                  >
+                    {completedBooks.length}
+                  </Badge>
+                </HStack>
               </Box>
               <AccordionIcon />
             </AccordionButton>
