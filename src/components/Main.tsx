@@ -17,7 +17,13 @@ export const Main: React.FC<MainProps> = ({}) => {
     isFetching,
   } = api.readingList.getReadingLists.useQuery();
 
-  if (isFetching && isLoading) {
+  const {
+    data: isDbRlEmpty,
+    isLoading: isDbRlLoading,
+    isFetching: isDbRlFetching,
+  } = api.readingList.isDbRlEmpty.useQuery();
+
+  if (isLoading || isDbRlLoading || isFetching || isDbRlFetching) {
     return (
       <Center pt="10">
         <Spinner />
@@ -25,17 +31,22 @@ export const Main: React.FC<MainProps> = ({}) => {
     );
   }
 
-  if (readingLists.length === 0 && readingListsData) {
+  if (readingLists.length === 0 && readingListsData && !isDbRlEmpty) {
     setReadingLists(readingListsData);
   }
+
+  console.log(readingLists.length)
 
   return (
     <Box pt="5">
       <Center>
         <SimpleGrid columns={[2, 3, 4]} spacing={20}>
           <CreateReadingList />
-          {readingLists.length > 0 &&
-            readingLists.map((readingList) => <ReadingListCard readingList={readingList} />)}
+          {readingLists.length > 0 ? (
+            readingLists.map((readingList) => <ReadingListCard readingList={readingList} />)
+          ) : (
+            <Box>nothing here yet!</Box>
+          )}
         </SimpleGrid>
       </Center>
     </Box>
