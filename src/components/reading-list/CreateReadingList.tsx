@@ -10,12 +10,12 @@ export const CreateReadingList: React.FC = () => {
     <div>
       <CreateReadingListModal isOpen={isOpen} onClose={onClose} />
       <Button
-        boxSize={["32", "36", "48"]}
+        boxSize={["32", "36", "56"]}
         variant="outline"
         flex={1}
         px={4}
         p="2"
-        fontSize={"sm"}
+        fontSize="md"
         rounded={"xl"}
         color={useColorModeValue("black", "white")}
         _hover={{
