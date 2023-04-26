@@ -33,10 +33,23 @@ interface BookProps {
 }
 
 export const Book: React.FC<BookProps> = ({ book }) => {
-  const { deleteBook } = useBookStore();
+  const { deleteBook, toggleComplete: toggleCompleteState } = useBookStore();
+
   const { mutate: removeBook } = api.book.deleteBook.useMutation({
     onSuccess: () => {
       deleteBook(book.id);
+    },
+  });
+
+  const { mutate: markAsFinished } = api.book.markComplete.useMutation({
+    onSuccess: () => {
+      toggleCompleteState(book.id);
+    },
+  });
+
+  const { mutate: markAsNotFinished } = api.book.markInComplete.useMutation({
+    onSuccess: () => {
+      toggleCompleteState(book.id);
     },
   });
 
@@ -46,8 +59,21 @@ export const Book: React.FC<BookProps> = ({ book }) => {
 
   return (
     <HStack pb="5">
-      <Checkbox mr="10" borderColor={useColorModeValue("gray.400", "gray.500")} />
-      <Text fontWeight="bold">{book.name}</Text>
+      <Checkbox
+        mr="10"
+        borderColor={useColorModeValue("gray.400", "gray.500")}
+        onChange={() => {
+          if (book.isFinished) {
+            markAsNotFinished({ bookId: book.id });
+          } else {
+            markAsFinished({ bookId: book.id });
+          }
+        }}
+        isChecked={book.isFinished}
+      />
+      <Text fontWeight="bold" as={book.isFinished ? "s" : "p"}>
+        {book.name}
+      </Text>
       <Text fontWeight="light">{book.author}</Text>
       <Spacer />
       <ButtonGroup>
