@@ -117,7 +117,10 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
                   </Button>
                   <Button
                     colorScheme="red"
-                    onClick={() => removeReadingList({ readingListId: readingList.id })}
+                    onClick={() => {
+                      removeReadingList({ readingListId: readingList.id });
+                      onClose();
+                    }}
                     ml={3}
                   >
                     Delete
