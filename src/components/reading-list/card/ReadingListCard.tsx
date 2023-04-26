@@ -23,8 +23,6 @@ import {
   AlertDialogFooter,
   useDisclosure,
   useToast,
-  Wrap,
-  WrapItem,
 } from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 
