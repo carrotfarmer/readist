@@ -17,7 +17,7 @@ export const userRouter = createTRPCRouter({
 
       const userRl = user?.readingLists.filter((rl) => rl.id === input.rlId);
 
-      if (userRl) {
+      if (userRl && userRl.length > 0) {
         return true;
       } else {
         return false;

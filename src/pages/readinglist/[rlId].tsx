@@ -18,9 +18,15 @@ const ReadingListPage: NextPage = () => {
 
   const { data: session } = useSession();
 
-  const { data: readingList, isLoading } = api.readingList.getReadingList.useQuery({ rlId: rlId as string });
+  const { data: readingList, isLoading } = api.readingList.getReadingList.useQuery({
+    rlId: rlId as string,
+  });
 
-  if (isLoading) {
+  const { data: isRlPartOfUser, isLoading: isUserCheckLoading } = api.user.isRlPartOfUser.useQuery({
+    rlId: rlId as string,
+  });
+
+  if (isLoading || isUserCheckLoading) {
     return (
       <Box>
         <Navbar />
@@ -29,7 +35,7 @@ const ReadingListPage: NextPage = () => {
           <Spinner />
         </Center>
       </Box>
-    )
+    );
   }
 
   return (
@@ -42,12 +48,16 @@ const ReadingListPage: NextPage = () => {
       <main>
         <Navbar />
 
-        {session ? (
+        {session && isRlPartOfUser ? (
           <ReadingList readingList={readingList as IReadingList} />
         ) : (
           <Center>
             <Box pt="5">
-              <Text>not authenticated. please sign in to continue.</Text>
+              {session ? (
+                <Text>Access Denied</Text>
+              ) : (
+                <Text>not authenticated. please sign in to continue.</Text>
+              )}
             </Box>
           </Center>
         )}
