@@ -33,8 +33,6 @@ export const Main: React.FC = ({}) => {
     setReadingLists(readingListsData);
   }
 
-  console.log(readingLists.length);
-
   return (
     <Box pt="5">
       <Center>

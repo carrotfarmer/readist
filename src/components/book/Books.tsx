@@ -4,6 +4,7 @@ import {
   useColorModeValue,
   Button,
   Tooltip,
+  Text,
   useDisclosure,
   Spinner,
 } from "@chakra-ui/react";
@@ -28,10 +29,16 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: booksData, isLoading, isFetching } = api.book.getBooks.useQuery({ rlId });
 
+  const {
+    data: isDbBooksEmpty,
+    isLoading: isDbBooksLoading,
+    isFetching: isDbBooksFetching,
+  } = api.book.isDbBooksEmpty.useQuery({ rlId });
+
   // reset state on route change
   useEffect(() => setBooks([]), [setBooks]);
 
-  if (isFetching && isLoading) {
+  if (isLoading || isDbBooksLoading || isFetching || isDbBooksFetching) {
     return (
       <Center pt="10">
         <Spinner />
@@ -39,7 +46,7 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
     );
   }
 
-  if (booksState.length === 0 && booksData) {
+  if (booksState.length === 0 && booksData && !isDbBooksEmpty) {
     setBooks(booksData);
   }
 
@@ -47,11 +54,15 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
     <>
       <Center pt="2%">
         <Box px="10" width="3xl">
-          {booksState
-            .filter((book) => !book.isFinished)
-            .map((book) => (
-              <Book book={book} key={book.id} />
-            ))}
+          {booksState.length > 0 ? (
+            booksState
+              .filter((book) => !book.isFinished)
+              .map((book) => <Book book={book} key={book.id} />)
+          ) : (
+            <Box pt="4%">
+              <Text>Nothing here yet!</Text>
+            </Box>
+          )}
         </Box>
       </Center>
       <Center>
