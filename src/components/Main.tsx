@@ -7,9 +7,7 @@ import { useReadingListStore } from "../store/ReadingListStore";
 import { CreateReadingList } from "./reading-list/CreateReadingList";
 import { ReadingListCard } from "./reading-list/card/ReadingListCard";
 
-interface MainProps {}
-
-export const Main: React.FC<MainProps> = ({}) => {
+export const Main: React.FC = ({}) => {
   const { readingLists, setReadingLists } = useReadingListStore();
   const {
     data: readingListsData,
@@ -35,7 +33,7 @@ export const Main: React.FC<MainProps> = ({}) => {
     setReadingLists(readingListsData);
   }
 
-  console.log(readingLists.length)
+  console.log(readingLists.length);
 
   return (
     <Box pt="5">
@@ -43,7 +41,9 @@ export const Main: React.FC<MainProps> = ({}) => {
         <SimpleGrid columns={[2, 3, 4]} spacing={20}>
           <CreateReadingList />
           {readingLists.length > 0 ? (
-            readingLists.map((readingList) => <ReadingListCard readingList={readingList} />)
+            readingLists.map((readingList) => (
+              <ReadingListCard readingList={readingList} key={readingList.id} />
+            ))
           ) : (
             <Box>nothing here yet!</Box>
           )}

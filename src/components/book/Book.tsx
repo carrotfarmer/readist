@@ -17,7 +17,7 @@ import {
   PopoverCloseButton,
   PopoverBody,
 } from "@chakra-ui/react";
-import type React from "react";
+import React from "react";
 import { useRef } from "react";
 
 import { BsTrash as DeleteIcon } from "react-icons/bs";

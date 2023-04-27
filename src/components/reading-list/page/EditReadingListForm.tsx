@@ -9,7 +9,7 @@ import {
   useMergeRefs,
 } from "@chakra-ui/react";
 
-import type React from "react";
+import React from "react";
 import type { MutableRefObject } from "react";
 
 import { useForm } from "react-hook-form";

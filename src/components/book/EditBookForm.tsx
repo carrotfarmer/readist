@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 import { type MutableRefObject } from "react";
 
 import {
@@ -63,11 +63,11 @@ export const EditBookForm: React.FC<EditBookFormProps> = ({ editRef, onCancel, b
 
   const { mutate: editBook } = api.book.editBook.useMutation({
     onSuccess: (data) => {
-      editBookState(book.id, data.name, data.author)
+      editBookState(book.id, data.name, data.author);
     },
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: FormData): void => {
     editBook({ bookId: book.id, newTitle: data.newTitle, newAuthor: data.newAuthor });
     onCancel();
   };

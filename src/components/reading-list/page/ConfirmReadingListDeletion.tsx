@@ -8,8 +8,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-import type React from "react";
-import type { RefObject } from "react";
+import React, { type MutableRefObject } from "react";
 
 interface DeleteReadingListInput {
   readingListId: string;
@@ -18,7 +17,7 @@ interface DeleteReadingListInput {
 interface ConfirmReadingListDeletionProps {
   isOpen: boolean;
   onClose: () => void;
-  cancelRef: RefObject<HTMLInputElement>;
+  cancelRef: MutableRefObject<null>;
   rlId: string;
   deleteRl: (args: DeleteReadingListInput) => void;
 }
@@ -38,11 +37,9 @@ export const ConfirmReadingListDeletion: React.FC<ConfirmReadingListDeletionProp
             Delete Reading List
           </AlertDialogHeader>
 
-          <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
+          <AlertDialogBody>Are you sure? You can&apos;t undo this action afterwards.</AlertDialogBody>
 
           <AlertDialogFooter>
-            {/* FIX: LegacyRefObject<HTMLButtonElement> | undefined */}
-            {/* @ts-ignore */}
             <Button ref={cancelRef} onClick={onClose}>
               Cancel
             </Button>

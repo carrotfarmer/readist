@@ -72,7 +72,7 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, rlI
     },
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: FormData): void => {
     newBook({ bookName: data.bookTitle, bookAuthor: data.author, rlId });
     reset();
     onClose();

@@ -29,7 +29,7 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
   const { data: booksData, isLoading, isFetching } = api.book.getBooks.useQuery({ rlId });
 
   // reset state on route change
-  useEffect(() => setBooks([]), []);
+  useEffect(() => setBooks([]), [setBooks]);
 
   if (isFetching && isLoading) {
     return (
@@ -50,7 +50,7 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
           {booksState
             .filter((book) => !book.isFinished)
             .map((book) => (
-              <Book book={book} />
+              <Book book={book} key={book.id} />
             ))}
         </Box>
       </Center>
@@ -60,6 +60,7 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
             <Button
               bgColor="teal.600"
               _hover={{ bgColor: "teal.500" }}
+              // eslint-disable-next-line react-hooks/rules-of-hooks
               color={useColorModeValue("white", "white")}
               size="sm"
               onClick={onOpen}

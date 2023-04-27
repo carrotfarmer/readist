@@ -1,5 +1,5 @@
 import { Button, useColorModeValue, useDisclosure } from "@chakra-ui/react";
-import type React from "react";
+import React from "react";
 
 import { CreateReadingListModal } from "../reading-list/CreateReadingListModal"
 

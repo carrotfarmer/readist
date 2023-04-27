@@ -45,9 +45,9 @@ export const CompletedBooks: React.FC<CompletedBooksProps> = ({ completedBooks }
             <AccordionPanel pb={4}>
               <Box pt="4">
                 {completedBooks.map((completedBook) => (
-                  <Center>
+                  <Center key={completedBook.id}>
                     <Box width="3xl" px="10">
-                      <Book book={completedBook} />
+                      <Book book={completedBook} key={completedBook.id} />
                     </Box>
                   </Center>
                 ))}

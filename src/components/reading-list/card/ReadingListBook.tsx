@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
-import { Book } from "@prisma/client";
-import type React from "react";
+import { type Book } from "@prisma/client";
+import React from "react";
 
 import { Text } from "@chakra-ui/react";
 

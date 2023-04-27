@@ -15,8 +15,8 @@ import {
   PopoverCloseButton,
   PopoverBody,
 } from "@chakra-ui/react";
-import type React from "react";
-import { IReadingList } from "~/types";
+import React from "react";
+import { type IReadingList } from "~/types";
 
 import { BsTrash as DeleteIcon } from "react-icons/bs";
 import { BiEdit as EditIcon } from "react-icons/bi";
@@ -41,14 +41,14 @@ export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
 
   // alert dialog
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const cancelRef = useRef<HTMLInputElement>(null);
+  const cancelRef = useRef(null);
 
   // edit popover
   const { isOpen: isPopoverOpen, onOpen: onPopoverOpen, onClose: onPopoverClose } = useDisclosure();
   const editRef = useRef(null);
 
   const { mutate: deleteRl } = api.readingList.deleteReadingList.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast({
         title: "Deleted Reading List",
         status: "success",
@@ -56,7 +56,7 @@ export const ReadingList: React.FC<ReadingListProps> = ({ readingList }) => {
         isClosable: true,
       });
       deleteReadingList(readingList.id);
-      router.push("/");
+      await router.push("/");
     },
   });
 

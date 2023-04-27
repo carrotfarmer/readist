@@ -1,9 +1,9 @@
-import type React from "react";
+import React from "react";
 import { useRef } from "react";
 
 import Link from "next/link";
 
-import { IReadingList } from "~/types";
+import { type IReadingList } from "~/types";
 
 import {
   Center,
@@ -106,7 +106,7 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
                 </AlertDialogHeader>
 
                 <AlertDialogBody>
-                  Are you sure? You can't undo this action afterwards.
+                  Are you sure? You can&apos;t undo this action afterwards.
                 </AlertDialogBody>
 
                 <AlertDialogFooter>
@@ -133,7 +133,7 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
       <Stack direction={"row"} px="2">
         <ul>
           {readingList.books.slice(0, 2).map((book) => (
-            <ReadingListBook book={book} />
+            <ReadingListBook book={book} key={book.id} />
           ))}
         </ul>
       </Stack>
