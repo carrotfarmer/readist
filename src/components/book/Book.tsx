@@ -34,7 +34,6 @@ interface BookProps {
 }
 
 export const Book: React.FC<BookProps> = ({ rlId, book }) => {
-  // const { deleteBook, toggleComplete: toggleCompleteState } = useBookStore();
   const { deleteBook, toggleComplete: toggleCompleteState } = useReadingListStore();
 
   const { mutate: removeBook } = api.book.deleteBook.useMutation({
