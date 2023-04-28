@@ -10,35 +10,35 @@ import {
 } from "@chakra-ui/react";
 
 import { Book } from "./Book";
-import { useBookStore } from "~/store/BookStore";
 
 import { BiBookAdd } from "react-icons/bi";
 import { NewBookModal } from "./NewBookModal";
 import { api } from "~/utils/api";
-import { useEffect } from "react";
 import { CompletedBooks } from "./CompletedBooks";
+import { useReadingListStore } from "~/store/ReadingListStore";
 
 interface BooksProps {
   rlId: string;
 }
 
 export const Books: React.FC<BooksProps> = ({ rlId }) => {
-  const { books: booksState, setBooks } = useBookStore();
+  const { readingLists, setReadingLists } = useReadingListStore();
 
   // Add Book Modal
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: booksData, isLoading, isFetching } = api.book.getBooks.useQuery({ rlId });
+  const {
+    data: readingListsData,
+    isLoading,
+    isFetching,
+  } = api.readingList.getReadingLists.useQuery();
 
   const {
-    data: isDbBooksEmpty,
-    isLoading: isDbBooksLoading,
-    isFetching: isDbBooksFetching,
-  } = api.book.isDbBooksEmpty.useQuery({ rlId });
+    data: isDbRlEmpty,
+    isLoading: isDbRlLoading,
+    isFetching: isDbRlFetching,
+  } = api.readingList.isDbRlEmpty.useQuery();
 
-  // reset state on route change
-  useEffect(() => setBooks([]), [setBooks]);
-
-  if (isLoading || isDbBooksLoading || isFetching || isDbBooksFetching) {
+  if (isLoading || isDbRlLoading || isFetching || isDbRlFetching) {
     return (
       <Center pt="10">
         <Spinner />
@@ -46,16 +46,26 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
     );
   }
 
-  if (booksState.length === 0 && booksData && !isDbBooksEmpty) {
-    setBooks(booksData);
+  if (readingLists.length === 0 && readingListsData && !isDbRlEmpty) {
+    setReadingLists(readingListsData);
+  }
+
+  const readingList = readingLists.find((rl) => rl.id === rlId);
+
+  if (!readingList) {
+    return (
+      <Center pt="10">
+        <Spinner />
+      </Center>
+    );
   }
 
   return (
     <>
       <Center pt="2%">
         <Box px="10" width="3xl">
-          {booksState.length > 0 ? (
-            booksState
+          {readingList?.books.length > 0 ? (
+            readingList?.books
               .filter((book) => !book.isFinished)
               .map((book) => <Book book={book} key={book.id} />)
           ) : (
@@ -71,7 +81,6 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
             <Button
               bgColor="teal.600"
               _hover={{ bgColor: "teal.500" }}
-              // eslint-disable-next-line react-hooks/rules-of-hooks
               color={useColorModeValue("white", "white")}
               size="sm"
               onClick={onOpen}
@@ -84,9 +93,11 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
           <NewBookModal isOpen={isOpen} onClose={onClose} rlId={rlId} />
         </Box>
       </Center>
-      {booksState.filter((book) => book.isFinished).length > 0 && (
+      {readingList.books.filter((book) => book.isFinished).length > 0 && (
         <Box pt="10">
-          <CompletedBooks completedBooks={booksState.filter((book) => book.isFinished)} />
+          <CompletedBooks
+            completedBooks={readingList.books.filter((book) => book.isFinished)}
+          />
         </Box>
       )}
     </>
