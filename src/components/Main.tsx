@@ -9,6 +9,7 @@ import { ReadingListCard } from "./reading-list/card/ReadingListCard";
 
 export const Main: React.FC = ({}) => {
   const { readingLists, setReadingLists } = useReadingListStore();
+
   const {
     data: readingListsData,
     isLoading,

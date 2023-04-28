@@ -24,6 +24,7 @@ import { api } from "~/utils/api";
 
 import { useBookStore } from "~/store/BookStore";
 import { consts } from "~/constants";
+import { useReadingListStore } from "~/store/ReadingListStore";
 
 interface NewBookModalProps {
   isOpen: boolean;
@@ -64,11 +65,11 @@ export const NewBookModal: React.FC<NewBookModalProps> = ({ isOpen, onClose, rlI
 
   const newBookRef = useRef(null);
 
-  const { addBook } = useBookStore();
+  const { addBook } = useReadingListStore();
 
   const { mutate: newBook } = api.book.createBook.useMutation({
     onSuccess: (data) => {
-      addBook(data);
+      addBook(rlId, data);
     },
   });
 
