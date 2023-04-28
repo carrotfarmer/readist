@@ -67,7 +67,7 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
           {readingList?.books.length > 0 ? (
             readingList?.books
               .filter((book) => !book.isFinished)
-              .map((book) => <Book book={book} key={book.id} />)
+              .map((book) => <Book rlId={rlId} book={book} key={book.id} />)
           ) : (
             <Box pt="4%">
               <Text>Nothing here yet!</Text>

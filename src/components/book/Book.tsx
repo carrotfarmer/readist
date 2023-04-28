@@ -24,32 +24,34 @@ import { BsTrash as DeleteIcon } from "react-icons/bs";
 import { BiEdit as EditIcon } from "react-icons/bi";
 
 import type { Book as IBook } from "@prisma/client";
-import { useBookStore } from "~/store/BookStore";
 import { api } from "~/utils/api";
 import { EditBookForm } from "./EditBookForm";
+import { useReadingListStore } from "~/store/ReadingListStore";
 
 interface BookProps {
   book: IBook;
+  rlId: string;
 }
 
-export const Book: React.FC<BookProps> = ({ book }) => {
-  const { deleteBook, toggleComplete: toggleCompleteState } = useBookStore();
+export const Book: React.FC<BookProps> = ({ rlId, book }) => {
+  // const { deleteBook, toggleComplete: toggleCompleteState } = useBookStore();
+  const { deleteBook, toggleComplete: toggleCompleteState } = useReadingListStore();
 
   const { mutate: removeBook } = api.book.deleteBook.useMutation({
     onSuccess: () => {
-      deleteBook(book.id);
+      deleteBook(rlId, book.id);
     },
   });
 
   const { mutate: markAsFinished } = api.book.markComplete.useMutation({
     onSuccess: () => {
-      toggleCompleteState(book.id);
+      toggleCompleteState(rlId, book.id);
     },
   });
 
   const { mutate: markAsNotFinished } = api.book.markInComplete.useMutation({
     onSuccess: () => {
-      toggleCompleteState(book.id);
+      toggleCompleteState(rlId, book.id);
     },
   });
 
