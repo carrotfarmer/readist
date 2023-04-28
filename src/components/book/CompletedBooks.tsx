@@ -16,9 +16,10 @@ import { Book } from "./Book";
 
 interface CompletedBooksProps {
   completedBooks: IBook[];
+  rlId: string;
 }
 
-export const CompletedBooks: React.FC<CompletedBooksProps> = ({ completedBooks }) => {
+export const CompletedBooks: React.FC<CompletedBooksProps> = ({ completedBooks, rlId }) => {
   return (
     <Center>
       <Accordion allowToggle width="2xl" borderColor="gray.600" pb="10">
@@ -47,7 +48,7 @@ export const CompletedBooks: React.FC<CompletedBooksProps> = ({ completedBooks }
                 {completedBooks.map((completedBook) => (
                   <Center key={completedBook.id}>
                     <Box width="3xl" px="10">
-                      <Book book={completedBook} key={completedBook.id} />
+                      <Book book={completedBook} rlId={rlId} key={completedBook.id} />
                     </Box>
                   </Center>
                 ))}

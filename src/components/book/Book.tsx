@@ -82,7 +82,6 @@ export const Book: React.FC<BookProps> = ({ rlId, book }) => {
               // cannot update a component (`Books`) while rendering a different component (`Books`). 
               // To locate the bad setState() call inside `Books`, follow the stack trace as described in ...
               markAsNotFinished({ bookId: book.id });
-              window.location.reload();
             } else {
               markAsFinished({ bookId: book.id });
             }

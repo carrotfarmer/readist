@@ -97,6 +97,7 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
         <Box pt="10">
           <CompletedBooks
             completedBooks={readingList.books.filter((book) => book.isFinished)}
+            rlId={rlId}
           />
         </Box>
       )}
