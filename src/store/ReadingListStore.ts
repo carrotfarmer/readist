@@ -15,7 +15,8 @@ interface ReadingListActions {
 interface BookActions {
   addBook: (readingListId: string, newBook: Book) => void;
   deleteBook: (readingListId: string, bookId: string) => void;
-  toggleComplete: (readingListId: string, bookId: string) => void;
+  markAsFinished: (readingListId: string, bookId: string) => void;
+  markAsUnFinished: (readingListId: string, bookId: string) => void;
 } 
 
 type Action = ReadingListActions & BookActions
@@ -44,14 +45,28 @@ export const useReadingListStore = create<State & Action>((set) => ({
       ),
     })),
 
-  toggleComplete: (readingListId: string, bookId: string) =>
+  markAsFinished: (readingListId: string, bookId: string) =>
     set((state) => ({
       readingLists: state.readingLists.map((rl) =>
         rl.id === readingListId
           ? {
               ...rl,
               books: rl.books.map((book) =>
-                book.id === bookId ? { ...book, isFinished: !book.isFinished } : book
+                book.id === bookId ? { ...book, isFinished: true } : book
+              ),
+            }
+          : rl
+      ),
+    })),
+
+  markAsUnFinished: (readingListId: string, bookId: string) =>
+    set((state) => ({
+      readingLists: state.readingLists.map((rl) =>
+        rl.id === readingListId
+          ? {
+              ...rl,
+              books: rl.books.map((book) =>
+                book.id === bookId ? { ...book, isFinished: true } : book
               ),
             }
           : rl

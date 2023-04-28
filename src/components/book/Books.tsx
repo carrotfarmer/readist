@@ -1,7 +1,6 @@
 import {
   Center,
   Box,
-  useColorModeValue,
   Button,
   Tooltip,
   Text,
@@ -64,8 +63,8 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
     <>
       <Center pt="2%">
         <Box px="10" width="3xl">
-          {readingList?.books.length > 0 ? (
-            readingList?.books
+          {readingList.books.filter(book => !book.isFinished).length > 0 ? (
+            readingList.books
               .filter((book) => !book.isFinished)
               .map((book) => <Book rlId={rlId} book={book} key={book.id} />)
           ) : (
@@ -81,7 +80,8 @@ export const Books: React.FC<BooksProps> = ({ rlId }) => {
             <Button
               bgColor="teal.600"
               _hover={{ bgColor: "teal.500" }}
-              color={useColorModeValue("white", "white")}
+              color="white"
+              _dark={{ color: "white" }}
               size="sm"
               onClick={onOpen}
             >

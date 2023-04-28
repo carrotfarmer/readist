@@ -34,7 +34,11 @@ interface BookProps {
 }
 
 export const Book: React.FC<BookProps> = ({ rlId, book }) => {
-  const { deleteBook, toggleComplete: toggleCompleteState } = useReadingListStore();
+  const {
+    deleteBook,
+    markAsFinished: markAsFinishedState,
+    markAsUnFinished: markAsUnFinishedState,
+  } = useReadingListStore();
 
   const { mutate: removeBook } = api.book.deleteBook.useMutation({
     onSuccess: () => {
@@ -44,13 +48,13 @@ export const Book: React.FC<BookProps> = ({ rlId, book }) => {
 
   const { mutate: markAsFinished } = api.book.markComplete.useMutation({
     onSuccess: () => {
-      toggleCompleteState(rlId, book.id);
+      markAsFinishedState(rlId, book.id);
     },
   });
 
   const { mutate: markAsNotFinished } = api.book.markInComplete.useMutation({
     onSuccess: () => {
-      toggleCompleteState(rlId, book.id);
+      markAsUnFinishedState(rlId, book.id);
     },
   });
 
@@ -72,7 +76,13 @@ export const Book: React.FC<BookProps> = ({ rlId, book }) => {
           borderColor={useColorModeValue("gray.400", "gray.500")}
           onChange={() => {
             if (book.isFinished) {
+              // HACK: Temp Fix: Reload page when marking a book as un-finished.
+              // Why? State doesn't update here for some reason.
+              // Warning in browser console:
+              // cannot update a component (`Books`) while rendering a different component (`Books`). 
+              // To locate the bad setState() call inside `Books`, follow the stack trace as described in ...
               markAsNotFinished({ bookId: book.id });
+              window.location.reload();
             } else {
               markAsFinished({ bookId: book.id });
             }
@@ -82,7 +92,9 @@ export const Book: React.FC<BookProps> = ({ rlId, book }) => {
         <Text fontWeight="bold" as={book.isFinished ? "s" : "p"}>
           {book.name}
         </Text>
-        <Text fontWeight="light" color={useColorModeValue("gray.500", "gray.400")}>{book.author}</Text>
+        <Text fontWeight="light" color={useColorModeValue("gray.500", "gray.400")}>
+          {book.author}
+        </Text>
         <Spacer />
         <ButtonGroup>
           <Popover
