@@ -78,7 +78,7 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
                   color: "teal.500",
                   _dark: {
                     color: "teal.300",
-                  }
+                  },
                 }}
               >
                 {readingList.name.length > 20
@@ -107,8 +107,14 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
               colorScheme="red"
               fontWeight="bold"
               _hover={{
-                cursor: "pointer",
-                bgColor: "red.800",
+                bgColor: "red.200",
+                cursor: "pointer"
+              }}
+              _dark={{
+                _hover: {
+                  bgColor: "red.300",
+                  cursor: "pointer",
+                },
               }}
               onClick={onOpen}
             >
