@@ -24,7 +24,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { BsTrash } from "react-icons/bs";
+import { BsTrash, BsCheckCircleFill } from "react-icons/bs";
 
 import { ReadingListBook } from "./ReadingListBook";
 import { useReadingListStore } from "~/store/ReadingListStore";
@@ -34,7 +34,7 @@ interface ReadingListProps {
   readingList: IReadingList;
 }
 
-export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList}) => {
+export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => {
   const toast = useToast();
 
   const { deleteReadingList } = useReadingListStore();
@@ -82,7 +82,14 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList}) => {
         <Box pr="2">
           <HStack spacing="1">
             <Tag size="sm" variant="solid" colorScheme="teal" fontWeight="bold">
-              {readingList.books.filter((book) => !book.isFinished).length}
+              {readingList.books.filter((book) => !book.isFinished).length === 0 &&
+              readingList.books.length > 0 ? (
+                <Box>
+                  <BsCheckCircleFill />
+                </Box>
+              ) : (
+                readingList.books.filter((book) => !book.isFinished).length
+              )}
             </Tag>
             <Tag
               size="sm"
@@ -133,9 +140,15 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList}) => {
 
       <Stack direction={"row"} px="2">
         <ul>
-          {readingList.books.slice(0, 2).map((book) => (
-            <ReadingListBook book={book} key={book.id} />
-          ))}
+          {readingList.books.filter((book) => !book.isFinished).length > 0
+            ? readingList.books
+                .filter((book) => !book.isFinished)
+                .slice(0, 2)
+                .map((book) => <ReadingListBook book={book} key={book.id} />)
+            : readingList.books
+                .filter((book) => book.isFinished)
+                .slice(0, 2)
+                .map((book) => <ReadingListBook book={book} key={book.id} />)}
         </ul>
       </Stack>
     </Box>

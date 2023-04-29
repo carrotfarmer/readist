@@ -13,7 +13,7 @@ export const ReadingListBook: React.FC<ReadingListBook> = ({ book }) => {
     <Box px="4">
       <li>
         <Box fontSize="xs">
-          <Text textDecor="underline" fontWeight="bold">
+          <Text fontWeight="bold" as={book.isFinished ? "s" : "p"}>
             {book.name}
           </Text>
           <Text color="gray.500">{book.author}</Text>

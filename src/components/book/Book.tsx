@@ -76,12 +76,14 @@ export const Book: React.FC<BookProps> = ({ rlId, book }) => {
           borderColor={useColorModeValue("gray.400", "gray.500")}
           onChange={() => {
             if (book.isFinished) {
+
               // HACK: Temp Fix: Reload page when marking a book as un-finished.
               // Why? State doesn't update here for some reason.
               // Warning in browser console:
               // cannot update a component (`Books`) while rendering a different component (`Books`). 
               // To locate the bad setState() call inside `Books`, follow the stack trace as described in ...
               markAsNotFinished({ bookId: book.id });
+
             } else {
               markAsFinished({ bookId: book.id });
             }

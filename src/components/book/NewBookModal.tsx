@@ -22,7 +22,6 @@ import { z } from "zod";
 
 import { api } from "~/utils/api";
 
-import { useBookStore } from "~/store/BookStore";
 import { consts } from "~/constants";
 import { useReadingListStore } from "~/store/ReadingListStore";
 
