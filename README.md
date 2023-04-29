@@ -1,7 +1,5 @@
 # readist 
 
-## IMP: will be back online after bug fixes!
-
 an easy way to track your reading
 
 <center>
