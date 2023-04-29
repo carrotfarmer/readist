@@ -70,7 +70,17 @@ export const ReadingListCard: React.FC<ReadingListProps> = ({ readingList }) => 
         <Center>
           <Link href={`/readinglist/${readingList.id}`}>
             <Stack align={"center"}>
-              <Heading fontSize={"xl"} fontWeight="extrabold" p={4}>
+              <Heading
+                fontSize={"xl"}
+                fontWeight="extrabold"
+                p={4}
+                _hover={{
+                  color: "teal.500",
+                  _dark: {
+                    color: "teal.300",
+                  }
+                }}
+              >
                 {readingList.name.length > 20
                   ? `${readingList.name.slice(0, 20)}...`
                   : readingList.name}
