@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { IReadingList } from "~/types";
 
 export const bookRouter = createTRPCRouter({
   createBook: protectedProcedure
@@ -120,11 +121,12 @@ export const bookRouter = createTRPCRouter({
           id: input.rlId,
         },
         include: {
+          user: true,
           books: true,
         },
-      });
+      }) as IReadingList;
 
-      if (rl!.books.length > 0) {
+      if (rl.books.length > 0) {
         return false;
       } else {
         return true;
