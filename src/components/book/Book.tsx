@@ -119,7 +119,7 @@ export const Book: React.FC<BookProps> = ({ rlId, book }) => {
                 <PopoverHeader>Edit Reading List Name</PopoverHeader>
                 <PopoverCloseButton tabIndex={2} />
                 <PopoverBody>
-                  <EditBookForm editRef={editRef} onCancel={onPopoverClose} book={book} />
+                  <EditBookForm rlId={rlId} editRef={editRef} onCancel={onPopoverClose} book={book} />
                 </PopoverBody>
               </PopoverContent>
             </Portal>

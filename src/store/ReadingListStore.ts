@@ -17,9 +17,10 @@ interface BookActions {
   deleteBook: (readingListId: string, bookId: string) => void;
   markAsFinished: (readingListId: string, bookId: string) => void;
   markAsUnFinished: (readingListId: string, bookId: string) => void;
-} 
+  editBook: (readingListId: string, bookId: string, newTitle: string, newAuthor: string) => void;
+}
 
-type Action = ReadingListActions & BookActions
+type Action = ReadingListActions & BookActions;
 
 export const useReadingListStore = create<State & Action>((set) => ({
   readingLists: [],
@@ -67,6 +68,20 @@ export const useReadingListStore = create<State & Action>((set) => ({
               ...rl,
               books: rl.books.map((book) =>
                 book.id === bookId ? { ...book, isFinished: true } : book
+              ),
+            }
+          : rl
+      ),
+    })),
+
+  editBook: (readingListId: string, bookId: string, newTitle: string, newAuthor: string) =>
+    set((state) => ({
+      readingLists: state.readingLists.map((rl) =>
+        rl.id === readingListId
+          ? {
+              ...rl,
+              books: rl.books.map((book) =>
+                book.id === bookId ? { ...book, name: newTitle, author: newAuthor } : book
               ),
             }
           : rl
