@@ -98,21 +98,4 @@ export const readingListRouter = createTRPCRouter({
         },
       });
     }),
-
-  isDbRlEmpty: protectedProcedure.query(async ({ ctx }) => {
-    const dbUser = await ctx.prisma.user.findUnique({
-      where: {
-        id: ctx.session.user.id,
-      },
-      include: {
-        readingLists: true,
-      },
-    });
-
-    if (dbUser!.readingLists.length > 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }),
 });

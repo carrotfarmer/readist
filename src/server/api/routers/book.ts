@@ -108,28 +108,4 @@ export const bookRouter = createTRPCRouter({
         },
       });
     }),
-
-  isDbBooksEmpty: protectedProcedure
-    .input(
-      z.object({
-        rlId: z.string(),
-      })
-    )
-    .query(async ({ input, ctx }) => {
-      const rl = await ctx.prisma.readingList.findUnique({
-        where: {
-          id: input.rlId,
-        },
-        include: {
-          user: true,
-          books: true,
-        },
-      }) as IReadingList;
-
-      if (rl.books.length > 0) {
-        return false;
-      } else {
-        return true;
-      }
-    }),
 });

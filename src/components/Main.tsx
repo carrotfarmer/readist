@@ -16,13 +16,7 @@ export const Main: React.FC = ({}) => {
     isFetching,
   } = api.readingList.getReadingLists.useQuery();
 
-  const {
-    data: isDbRlEmpty,
-    isLoading: isDbRlLoading,
-    isFetching: isDbRlFetching,
-  } = api.readingList.isDbRlEmpty.useQuery();
-
-  if (isLoading || isDbRlLoading || isFetching || isDbRlFetching) {
+  if (isLoading || isFetching) {
     return (
       <Center pt="10">
         <Spinner />
@@ -30,7 +24,7 @@ export const Main: React.FC = ({}) => {
     );
   }
 
-  if (readingLists.length === 0 && readingListsData && !isDbRlEmpty) {
+  if (readingLists.length === 0 && readingListsData && readingListsData.length > 0) {
     setReadingLists(readingListsData);
   }
 
