@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import { IReadingList } from "~/types";
 
 export const bookRouter = createTRPCRouter({
   createBook: protectedProcedure
